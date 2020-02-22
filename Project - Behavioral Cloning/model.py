@@ -96,6 +96,8 @@ print('Getting Right Camera Images...')
 imageList, steeringList = getImages(rows, imageList, steeringList, imagePosition)
 len3 = len(imageList)
 
+
+#Image Test
 plt.imshow(imageList[randint(0,len1)])
 plt.show()
 
@@ -111,20 +113,20 @@ dataBase = list(zip(imageList, steeringList))
 
 ##Creating Dataset for training
 def getData(Data, batchSize):
-    #for i in progressbar(range(15), "Processing | ", 40):
-    sampleSize = len(Data)
-    print(batchSize)
-    dataBase = shuffle(Data)
-    print("##############")
-    print(sampleSize)
+    for i in progressbar(range(15), "Processing | ", 40):
+        sampleSize = len(Data)
+        #print(batchSize)
+        dataBase = shuffle(Data)
+        #print("##############")
+        #print(sampleSize)
 
-    #for offset in range(0, sampleSize, batchSize):
-    #    print('offset loop')
-    #    batch = dataBase[offset:offset + batchSize]
-    #    for img, steeringAngle in Data:
-    #       print('dataset loop')
-    #        DatasetX = np.array(img)
-    #        DatasetY = np.array(steeringAngle)
+        for offset in range(0, sampleSize, batchSize):
+            #print('offset loop')
+            dataBatch = dataBase[offset:offset + batchSize]
+            for img, steeringAngle in dataBatch:
+                #print('dataset loop')
+                DatasetX = np.array(img)
+                DatasetY = np.array(steeringAngle)
 
     return DatasetX, DatasetY
 
@@ -138,10 +140,8 @@ print('Training Dataset: {}'.format(len(trainingData)))
 print('Validation Dataset: {}'.format(len(validationData)))
 
 print('Generating Training Dataset...')
-X,Y = getData(trainingData, 64)
+XTraining,YTraining = getData(trainingData, 64)
 print('Generating Validation Dataset...')
-X1,Y1 = getData(validationData, 64)
+XValidation,YValidation = getData(validationData, 64)
 
-print(len(X))
-print(len(X1))
 
